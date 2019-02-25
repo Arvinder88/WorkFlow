@@ -1,22 +1,27 @@
 ﻿@using Dapper.DAL.Models;
-@model Vill_Profile
+@model Sarpanch
 @{
     ViewBag.Title = "Village Profile";
 }
 
-<div class="main-content-inner">
-    <div class="row">
-        <div class="col-lg-3 ">CONSTITUENCY</div>
-        <div class="col-lg-3 ">DISTRICT</div>
-        <div class="col-lg-3 ">BLOCK</div>
-        <div class="col-lg-3 ">VILLAGE</div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3 ">
+<div class="main-content-inner" style="margin-top:10px" >
 
-        </div>
-        <div class="col-lg-3 "></div>
-        <div class="col-lg-3 "></div>
-        <div class="col-lg-3 "></div>
+    <div id="dvSarpanch" class="card shadow p-3 mb-5 bg-white rounded" >
+        <div class="card-title"> <h3>Sarpanch Info</h3> </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 ">CONSTITUENCY</div>
+                <div class="col-lg-3 ">DISTRICT</div>
+                <div class="col-lg-3 ">BLOCK</div>
+                <div class="col-lg-3 ">VILLAGE</div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-3 "><input type="text" id="txt1" class="form-control" /></div>
+                <div class="col-lg-3 "><input type="text" id="txt2" class="form-control" /></div>
+                <div class="col-lg-3 "><input type="text" id="txt3" class="form-control" /></div>
+                <div class="col-lg-3 "><input type="text" id="txt4" class="form-control" /></div>
+            </div>
+        </div>  
     </div>
 </div>
