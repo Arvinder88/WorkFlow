@@ -1,0 +1,581 @@
+﻿@using Dapper.DAL.Models;
+@model tbVillageProfile
+@{
+    ViewBag.Title = "Village Profile";
+}
+
+<div class="main-content-inner" style="margin-top:10px">
+
+    <form action="GetVillageProfile" method="post">
+        @*<input type="button" onclick="tostTest()" value="test" />*@
+        <input type="hidden" id="hdSarpanchID" value="0" />
+        <input type="hidden" id="hdProfileID" value="0" />
+        <div id="dvSarpanch" class="card shadow p-3 mb-5 bg-white rounded">
+            <div class="card-title"> <h3>SARPANCH INFO</h3> </div>
+            <div class="card-body" style="background-color:whitesmoke">
+
+                <div class="row rowmargin">
+                    <div class="col-lg-3 ">CONSTITUENCY<br />@Html.DropDownListFor(x => x.contituency, new SelectList(ViewBag.Constituency, "value", "text"), "select", new { @class = "form-control" })</div>
+                    <div class="col-lg-3 ">DISTRICT<br />@Html.DropDownListFor(x => x.district, new SelectList(ViewBag.District, "value", "text"), "select", new { @class = "form-control" })</div>
+                    <div class="col-lg-3 ">BLOCK<br />@Html.DropDownListFor(x => x.block, new SelectList(ViewBag.Block, "value", "text"), "select", new { @class = "form-control" })</div>
+                    <div class="col-lg-3 ">VILLAGE<br />@Html.DropDownListFor(x => x.village, new SelectList(ViewBag.Village, "value", "text"), "select", new { @class = "form-control" })</div>
+                </div>
+
+
+                <div class="row rowmargin">
+
+                    <div class="col-lg-3 ">NAME OF SARPANCH<br /><input type="text" ID="TXTSARPANCH" class="form-control" disabled /> </div>
+                    <div class="col-lg-3 ">SARPANCH MOBILE<br /><input type="text" ID="TXTSAR_MOBILE" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">FATHER/HUSBAND NAME<br /><input type="text" ID="txt_sar_father_husbandname" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">PERMANENT ADDRESS<br /><input type="text" ID="txt_sar_address" class="form-control" disabled /></div>
+                </div>
+
+
+                <div class="row rowmargin">
+
+                    <div class="col-lg-3 ">CORRESPONDENCE ADDRESS <br /><input type="text" ID="txt_cor_address1" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">GENDER<br /><input type="text" ID="txt_gender" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">EDUCATION <br /><input type="text" ID="txt_edu" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">OCCUPATION<br /><input type="text" ID="txt_occupation" class="form-control" disabled /></div>
+                </div>
+
+
+                <div class="row rowmargin">
+
+                    <div class="col-lg-3 ">DATE OF BIRTH<br /><input type="text" ID="txt_dob" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">AGE <br /><input type="text" ID="txt_approx_age" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">MARITAL STATUS<br /><input type="text" ID="txt_marital_status" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">EMAIL<br /><input type="text" ID="txt_email_id" class="form-control" disabled /></div>
+                </div>
+
+
+                <div class="row rowmargin">
+
+                    <div class="col-lg-3 ">ADHAR NO<br /><input type="text" ID="txt_adhar_no" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">CASTE<br /><input type="text" ID="txt_sar_caste" class="form-control" disabled /></div>
+                    <div class="col-lg-3 ">TOTAL VOTES*<br />@Html.TextBoxFor(x => x.totalVotes, new { @class = "form-control", @type = "number" })</div>
+                    <div class="col-lg-3 ">CASTE MAJORITY*<br />@Html.TextBoxFor(x => x.casteMajor, new { @class = "form-control" })</div>
+                </div>
+
+
+                <div class="row rowmargin">
+                    <div class="col-lg-6 ">PROBLEMS*<br />@Html.TextAreaFor(x => x.problems, new { @class = "form-control" })</div>
+                    <div class="col-lg-6 ">REMARKS<br />@Html.TextAreaFor(x => x.remarks, new { @class = "form-control" })</div>
+                </div>
+            </div>
+            <input type="button" id="btSaveProfile" value="Save" onclick="SaveVillageProfile()" class="btn btn-primary mb-3" style="display:block" />
+            <input type="button" id="btUpdateProfile" value="Update" onclick="UpdateVillageProfile()" class="btn btn-success mb-3" style="display:none" />
+            <button class="btn btn-success mb-3" style="display:none">Update</button>
+        </div>
+    </form>
+
+    <div id="dvPopulation" class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-title"> <h3><label class="lb_village"></label>  POPULATION </h3> </div>
+        <div class="card-body" style="background-color:whitesmoke">
+            <div class="row rowmargin">
+                <div class="col-lg-6">
+                    SELECT CASTE<br />
+                    <select ID="ddCast" class="form-control">
+                        <option>SELECT</option>
+                        <option Value="BRAHMIN">BRAHMIN</option>
+                        <option Value="JAT">JAT</option>
+                        <option Value="RAJPUT">RAJPUT</option>
+                        <option Value="BANIYA">BANIYA</option>
+                        <option Value="AHIR">AHIR</option>
+                    </select>
+                </div>
+                <div class="col-lg-6">
+                    POPULATION<br />
+                    <input type="number" id="txtPopulation" name="TXTPOPULTION" value="" class="form-control" />
+
+                </div>
+            </div>
+
+        </div>
+
+        <input type="button" id="btSavePopulation" value="Save" onclick="SaveVillagePopulation()" class="btn btn-primary mb-3" style="display:block" />
+
+
+        <div>
+            <table id="tbPopulation" class="table table-bordered" style="width:100%">
+                <tr><td>Cast</td><td>Population</td><td>Action</td></tr>
+                <tr>
+                    <td>sdsdf</td>
+                    <td>sdfds</td>
+                    <td>
+                        <div class="icon-container" style="margin: -9px;">
+                            <span class="ti-pencil" onclick="UpdateVillagePopulation(villID)"></span>
+                            <span class="icon-name" onclick="UpdateVillagePopulation(villID)">Edit</span>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+    </div>
+
+    <div id="dvConnect" class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-title"> <h3><label class="lb_village"></label>  CONNECT </h3> </div>
+        <div class="card-body" style="background-color:whitesmoke">
+            <div class="row rowmargin">
+                <div class="col-lg-3">
+                    CONNECT NAME<br />
+                    <input type="text" ID="txtconnectnme" class="form-control" />
+                </div>
+                <div class="col-lg-3">
+                    WARD NO<br />
+                    <input type="text" ID="txtward" class="form-control" />
+
+                </div>
+                <div class="col-lg-3">
+                    MOBILE<br />
+                    <input type="number" ID="txtconnectmobile" class="form-control" />
+
+                </div>
+                <div class="col-lg-3">
+                    MOBILE 2<br />
+                    <input type="number" ID="txtmob2conn" class="form-control" />
+
+                </div>
+            </div>
+            <div class="row rowmargin">
+                <div class="col-lg-3">
+                    CASTE<br />
+                    <input type="text" ID="txtconncaste" class="form-control" />
+                </div>
+                <div class="col-lg-9">
+                    REMARKS<br />
+
+                    <textarea ID="REMARKS" class="form-control"></textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+        <input type="button" id="btSavePopulation" value="Save" onclick="SaveVillagePopulation()" class="btn btn-primary mb-3" style="display:block" />
+        <input type="button" id="btUpdatePopulation" value="Update" onclick="UpdateVillagePopulation()" class="btn btn-success mb-3" style="display:none" />
+
+    </div>
+
+    <div id="dvInfluenser" class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-title"> <h3><label class="lb_village"></label>  INFLUENCER </h3> </div>
+        <div class="card-body" style="background-color:whitesmoke">
+            <div class="row rowmargin">
+                <div class="col-lg-3">
+                    INFLUENCER<br />
+                    <input type="text" ID="TXTINFLUENTIAL" class="form-control" />
+                </div>
+                <div class="col-lg-3">
+                    MOBILE<br />
+                    <input type="number" ID="txtinflumob" class="form-control" />
+
+                </div>
+                <div class="col-lg-3">
+                    MOBILE 2<br />
+                    <input type="number" ID="txtinfluencermob2" class="form-control" />
+
+                </div>
+                <div class="col-lg-3">
+                    PARTY SLANT<br />
+                    <input type="text" ID="TXTPARTY" class="form-control" />
+
+                </div>
+            </div>
+            <div class="row rowmargin">
+                <div class="col-lg-3">
+                    CASTE<br />
+                    <input type="text" ID="TXTCASTE" class="form-control" />
+                </div>
+                <div class="col-lg-9">
+                    REMARKS<br />
+
+                    <textarea ID="txtinfluencerremakrs" class="form-control"></textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+        <input type="button" id="btSavePopulation" value="Save" onclick="SaveVillagePopulation()" class="btn btn-primary mb-3" style="display:block" />
+        <input type="button" id="btUpdatePopulation" value="Update" onclick="UpdateVillagePopulation()" class="btn btn-success mb-3" style="display:none" />
+
+    </div>
+
+    <div id="dvProblems" class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-title"> <h3><label class="lb_village"></label>  PROBLEMS AND GOOD WORK </h3> </div>
+        <div class="card-body" style="background-color:whitesmoke">
+            <h5>TOP THREE PROBLEMS</h5>
+            <div class="row rowmargin">
+                <div class="col-lg-4">
+                    <textarea ID="txtProb1" class="form-control" placeholder="1"></textarea>
+                </div>
+                <div class="col-lg-4">
+                    <textarea ID="txtProb2" class="form-control" placeholder="2"></textarea>
+                </div>
+                <div class="col-lg-4">
+
+                    <textarea ID="txtProb3" class="form-control" placeholder="3"></textarea>
+
+                </div>
+
+            </div>
+            <h5 class="rowmargin">TOP THREE GOOD WORK</h5>
+            <div class="row ">
+                <div class="col-lg-4">
+
+                    <textarea ID="txtGood1" class="form-control" placeholder="1"></textarea>
+                </div>
+                <div class="col-lg-4">
+
+                    <textarea ID="txtGood2" class="form-control" placeholder="2"></textarea>
+
+                </div>
+                <div class="col-lg-4">
+
+                    <textarea ID="txtGood3" class="form-control" placeholder="3"></textarea>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <input type="button" id="btSavePopulation" value="Save" onclick="SaveVillagePopulation()" class="btn btn-primary mb-3" style="display:block" />
+        <input type="button" id="btUpdatePopulation" value="Update" onclick="UpdateVillagePopulation()" class="btn btn-success mb-3" style="display:none" />
+
+    </div>
+
+</div>
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $("#contituency").on("change", function () {
+
+                var selectedVal = $(this.selectedOptions).text();
+                var url = "../../VillageProfile/GetDistrict"
+                $.get(url, { Constituency: selectedVal }, function (response) {
+                    if (response.status == "success") {
+                        $("#district").html("");
+                        $("#district").append("<option value >select</option>");
+                        $.each(response.data, function (index, row) {
+                            $("#district").append("<option value='" + row.value + "'>" + row.text + "</option>");
+                        })
+
+                    }
+                    // if()
+                })
+            });
+
+            $("#district").on("change", function () {
+
+                var selectedVal = $(this.selectedOptions).text();
+                var url = "../../VillageProfile/GetBlock"
+                $.get(url, { District: selectedVal }, function (response) {
+                    if (response.status == "success") {
+                        $("#block").html("");
+                        $("#block").append("<option value >select</option>");
+                        $.each(response.data, function (index, row) {
+                            $("#block").append("<option value='" + row.value + "'>" + row.text + "</option>");
+                        });
+                    }
+                    // if()
+                })
+            });
+
+            $("#block").on("change", function () {
+
+                var selectedVal = $(this.selectedOptions).text();
+                var url = "../../VillageProfile/GetVillage"
+                $.get(url, { Block: selectedVal }, function (response) {
+                    if (response.status == "success") {
+                        $("#village").html("");
+                        $("#village").append("<option value >select</option>");
+                        $.each(response.data, function (index, row) {
+                            $("#village").append("<option value='" + row.value + "'>" + row.text + "</option>");
+                        });
+                    }
+                    // if()
+                })
+            });
+
+            $("#village").on("change", function () {
+                $(".lb_village").text($(this.selectedOptions).text() + ":");
+                var village = $(this.selectedOptions).text();
+                var district = $("#district option:selected").text();
+                var block = $("#block option:selected").text();
+                var constituency = $("#contituency option:selected").text();
+                var url = "../../VillageProfile/GetSarpanchInformation";
+                $.get(url, { _Village: village, Constituency: constituency, district: district, Block: block }, function (response) {
+                    if (response.status == "success") {
+
+                        $("#TXTSARPANCH").val(response.data[0]["Name"]);
+                        $("#TXTSAR_MOBILE").val(response.data[0]["mob_no"]);
+                        $("#txt_sar_father_husbandname").val(response.data[0]["Father_Husband_Name"]);
+                        $("#txt_sar_address").val(response.data[0]["permanent_address1"]);
+                        $("#txt_cor_address1").val(response.data[0]["cor_address1"]);
+                        $("#txt_gender").val(response.data[0]["gender"]);
+                        $("#txt_edu").val(response.data[0]["education"]);
+                        $("#txt_occupation").val(response.data[0]["occupation"]);
+                        $("#txt_dob").val(ConvertDate(response.data[0]["dob"]));
+                        $("#txt_approx_age").val(response.data[0]["approx_age"]);
+                        $("#txt_marital_status").val(response.data[0]["marital_status_id"]);
+                        $("#txt_email_id").val(response.data[0]["email_id"]);
+                        $("#txt_adhar_no").val(response.data[0]["adhar_no"]);
+                        $("#txt_sar_caste").val(response.data[0]["caste"]);
+                        $("#hdSarpanchID").val(response.data[0]["id"]);
+                        checkProfileForSarpanch(response.data[0]["id"]);
+                    }
+                    else {
+                        $.toast({
+                            heading: 'Error',
+                            text: 'No data Found.',
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                        });
+                    }
+                    // if()
+                })
+            });
+        });
+
+        function checkProfileForSarpanch(sarpanchID) {
+            url = "../../VillageProfile/GetProfilebySarpanchID";
+            $.get(url, { SarpanchID: sarpanchID }, function (response) {
+
+                if (response.status == true) {
+                    $("#btSaveProfile").hide();
+                    $("#btUpdateProfile").show();
+                    $("#totalVotes").val(response.data["totalVotes"]);
+                    $("#casteMajor").val(response.data["casteMajor"]);
+                    $("#problems").val(response.data["problems"]);
+                    $("#remarks").val(response.data["remarks"]);
+                    $("#hdProfileID").val(response.data["profileID"]);
+                }
+                else {
+                    $("#btSaveProfile").show();
+                    $("#btUpdateProfile").hide();
+                    $("#totalVotes").val("");
+                    $("#casteMajor").val("");
+                    $("#problems").val("");
+                    $("#remarks").val("");
+                    $("#hdProfileID").val(0);
+                }
+
+            });
+        }
+
+        function ConvertDate(dateString) {
+
+            newDate = moment(dateString).format("DD-MM-YYYY");
+            return newDate;
+        }
+
+        function SaveVillageProfile() {
+            var village = $("#village  option:selected").text();
+            var district = $("#district option:selected").text();
+            var block = $("#block option:selected").text();
+            var contituency = $("#contituency option:selected").text();
+            var totalVotes = $("#totalVotes").val();
+            var casteMajor = $("#casteMajor").val();
+            var problems = $("#problems").val();
+            var remarks = $("#remarks").val();
+            var sarpanchID = $("#hdSarpanchID").val();
+            var url = "../../VillageProfile/InsertVillageProfile";
+
+            var data = {
+                village: village,
+                district: district,
+                block, block,
+                contituency: contituency,
+                totalVotes: totalVotes,
+                casteMajor: casteMajor,
+                problems: problems,
+                remarks: remarks,
+                sarpanchID: sarpanchID
+            }
+            $.post(url, data, function (response) {
+
+                if (response.status = "success") {
+
+                    $("#btSaveProfile").hide();
+                    $("#btUpdateProfile").show();
+                    $.toast({
+                        heading: 'Save Success',
+                        showHideTransition: 'slide',
+                        icon: 'success'
+                    });
+                } else {
+                    $("#btSaveProfile").show();
+                    $("#btUpdateProfile").hide();
+                    $.toast({
+                        heading: 'Error',
+                        text: 'Please Try Again.',
+                        showHideTransition: 'fade',
+                        icon: 'error'
+                    });
+                }
+
+            })
+        }
+
+        function UpdateVillageProfile() {
+            debugger
+            var village = $("#village  option:selected").text();
+            var district = $("#district option:selected").text();
+            var block = $("#block option:selected").text();
+            var contituency = $("#contituency option:selected").text();
+            var totalVotes = $("#totalVotes").val();
+            var casteMajor = $("#casteMajor").val();
+            var problems = $("#problems").val();
+            var remarks = $("#remarks").val();
+            var sarpanchID = $("#hdSarpanchID").val();
+            var profileID = $("#hdProfileID").val();
+            var url = "../../VillageProfile/UpdateVillageProfile";
+
+            var data = {
+                profileID: profileID,
+                village: village,
+                district: district,
+                block, block,
+                contituency: contituency,
+                totalVotes: totalVotes,
+                casteMajor: casteMajor,
+                problems: problems,
+                remarks: remarks,
+                sarpanchID: sarpanchID
+            }
+            $.post(url, data, function (response) {
+                debugger
+                if (response.status = "success") {
+
+                    $("#btSaveProfile").hide();
+                    $("#btUpdateProfile").show();
+                    $.toast({
+                        heading: 'Update Success',
+                        showHideTransition: 'slide',
+                        icon: 'success'
+                    });
+                } else {
+                    $("#btSaveProfile").show();
+                    $("#btUpdateProfile").hide();
+                    $.toast({
+                        heading: 'Error',
+                        text: 'Please Try Again.',
+                        showHideTransition: 'fade',
+                        icon: 'error'
+                    });
+                }
+
+            })
+        }
+
+        function tostTest() {
+
+            $.toast({
+                heading: 'Save Successful',
+                showHideTransition: 'slide',
+                icon: 'success'
+            });
+        }
+
+        function SaveCastWisePopulation() {
+            var caste_name = $("#ddCast  option:selected").text();
+            var caste_population = $("#txtPopulation").val();
+            var vill_id = $("#village").val();
+            var url = "../../VillageProfile/InsertVillagePopulation";
+
+            var data = {
+                caste_name: caste_name,
+                caste_population: caste_population,
+                vill_id: vill_id
+            }
+            $.post(url, data, function (response) {
+
+                if (response.status = "success") {
+
+                    //$("#btSaveProfile").hide();
+                    //$("#btUpdateProfile").show();
+                    $.toast({
+                        heading: 'Save Success',
+                        showHideTransition: 'slide',
+                        icon: 'success'
+                    });
+                } else {
+                    //$("#btSaveProfile").show();
+                    //$("#btUpdateProfile").hide();
+                    $.toast({
+                        heading: 'Error',
+                        text: 'Please Try Again.',
+                        showHideTransition: 'fade',
+                        icon: 'error'
+                    });
+                }
+
+            })
+        }
+
+        function UpdateCastWisePopulation() {
+            var caste_name = $("#ddCast  option:selected").text();
+            var caste_population = $("#txtPopulation").val();
+            var vill_id = $("#village").val();
+            var caste_id = $("#caste_id").val();
+            var url = "../../VillageProfile/UpdateVillagePopulation";
+
+            var data = {
+                caste_name: caste_name,
+                caste_population: caste_population,
+                vill_id: vill_id,
+                caste_id: caste_id
+            }
+            $.post(url, data, function (response) {
+
+                if (response.status = "success") {
+
+                    //$("#btSaveProfile").hide();
+                    //$("#btUpdateProfile").show();
+                    $.toast({
+                        heading: 'Save Success',
+                        showHideTransition: 'slide',
+                        icon: 'success'
+                    });
+                } else {
+                    //$("#btSaveProfile").show();
+                    //$("#btUpdateProfile").hide();
+                    $.toast({
+                        heading: 'Error',
+                        text: 'Please Try Again.',
+                        showHideTransition: 'fade',
+                        icon: 'error'
+                    });
+                }
+
+            })
+        }
+
+        function GetCastWisePopulation() {
+
+            var vill_id = $("#village").val();
+            var url = "../../VillageProfile/GetVillagePopulation";
+
+            var data = {
+                VillID: vill_id
+            }
+            $.post(url, data, function (response) {
+
+                if (response.status = "success") {
+
+
+                } else {
+
+                }
+
+            })
+        }
+
+    </script>
+}
+

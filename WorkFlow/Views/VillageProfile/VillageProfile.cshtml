@@ -1,27 +1,191 @@
 ﻿@using Dapper.DAL.Models;
-@model Sarpanch
+@model tbVillageProfile
 @{
     ViewBag.Title = "Village Profile";
 }
 
-<div class="main-content-inner" style="margin-top:10px" >
+<div class="main-content-inner" style="margin-top:10px">
+    <form action="VillageProfile" method="post">
+        <div id="dvSarpanch" class="card shadow p-3 mb-5 bg-white rounded">
+            <div class="card-title"> <h3>Sarpanch Info</h3> </div>
+            <div class="card-body" style="background-color:whitesmoke">
+                <div class="row rowmargin">
+                    <div class="col-lg-3 ">CONSTITUENCY</div>
+                    <div class="col-lg-3 ">DISTRICT</div>
+                    <div class="col-lg-3 ">BLOCK</div>
+                    <div class="col-lg-3 ">VILLAGE</div>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-3 ">@Html.DropDownListFor(x => x.contituency, new SelectList(ViewBag.Constituency, "value", "text"), "select", new { @class = "form-control" })</div>
+                    <div class="col-lg-3 ">@Html.DropDownListFor(x => x.district, new SelectList(ViewBag.District, "value", "text"), "select", new { @class = "form-control" })</div>
+                    <div class="col-lg-3 ">@Html.DropDownListFor(x => x.block, new SelectList(ViewBag.Block, "value", "text"), "select", new { @class = "form-control" })</div>
+                    <div class="col-lg-3 ">@Html.DropDownListFor(x => x.village, new SelectList(ViewBag.Village, "value", "text"), "select", new { @class = "form-control" })</div>
+                </div>
 
-    <div id="dvSarpanch" class="card shadow p-3 mb-5 bg-white rounded" >
-        <div class="card-title"> <h3>Sarpanch Info</h3> </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-3 ">CONSTITUENCY</div>
-                <div class="col-lg-3 ">DISTRICT</div>
-                <div class="col-lg-3 ">BLOCK</div>
-                <div class="col-lg-3 ">VILLAGE</div>
-            </div>
-            <div class="row">
+                <div class="row rowmargin">
+                    <div class="col-lg-3 ">NAME OF SARPANCH</div>
+                    <div class="col-lg-3 ">SARPANCH MOBILE</div>
+                    <div class="col-lg-3 ">FATHER/HUSBAND NAME</div>
+                    <div class="col-lg-3 ">PERMANENT ADDRESS</div>
+                </div>
+                <div class="row">
 
-                <div class="col-lg-3 "><input type="text" id="txt1" class="form-control" /></div>
-                <div class="col-lg-3 "><input type="text" id="txt2" class="form-control" /></div>
-                <div class="col-lg-3 "><input type="text" id="txt3" class="form-control" /></div>
-                <div class="col-lg-3 "><input type="text" id="txt4" class="form-control" /></div>
+                    <div class="col-lg-3 "> <input type="text" ID="TXTSARPANCH" class="form-control" /> </div>
+                    <div class="col-lg-3 "><input type="text" ID="TXTSAR_MOBILE" class="form-control" /></div>
+                    <div class="col-lg-3 "><input type="text" ID="txt_sar_father_husbandname" class="form-control" /></div>
+                    <div class="col-lg-3 "><input type="text" ID="txt_sar_address" class="form-control" /></div>
+                </div>
+
+                <div class="row rowmargin">
+                    <div class="col-lg-3 ">CORRESPONDENCE ADDRESS</div>
+                    <div class="col-lg-3 ">GENDER</div>
+                    <div class="col-lg-3 ">EDUCATION</div>
+                    <div class="col-lg-3 ">OCCUPATION</div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-3 "> <input type="text" ID="txt_cor_address1" class="form-control" /></div>
+                    <div class="col-lg-3 "><input type="text" ID="txt_gender" class="form-control" /></div>
+                    <div class="col-lg-3 "> <input type="text" ID="txt_edu" class="form-control" /></div>
+                    <div class="col-lg-3 "><input type="text" ID="txt_occupation" class="form-control" /></div>
+                </div>
+
+                <div class="row rowmargin">
+                    <div class="col-lg-3 ">DATE OF BIRTH</div>
+                    <div class="col-lg-3 ">AGE</div>
+                    <div class="col-lg-3 ">MARITAL STATUS</div>
+                    <div class="col-lg-3 ">EMAIL</div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-3 "><input type="text" ID="txt_dob" class="form-control" /></div>
+                    <div class="col-lg-3 "> <input type="text" ID="txt_approx_age" class="form-control" /></div>
+                    <div class="col-lg-3 "><input type="text" ID="txt_marital_status" class="form-control" /></div>
+                    <div class="col-lg-3 "><input type="text" ID="txt_email_id" class="form-control" /></div>
+                </div>
+
+                <div class="row rowmargin">
+                    <div class="col-lg-3 ">ADHAR NO</div>
+                    <div class="col-lg-3 ">CASTE</div>
+                    <div class="col-lg-3 ">TOTAL VOTES*</div>
+                    <div class="col-lg-3 ">CASTE MAJORITY*</div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-3 "><input type="text" ID="txt_adhar_no" class="form-control" /></div>
+                    <div class="col-lg-3 "><input type="text" ID="txt_sar_caste" class="form-control" /></div>
+                    <div class="col-lg-3 ">@Html.TextBoxFor(x => x.totalVotes, new { @class = "form-control" })</div>
+                    <div class="col-lg-3 ">@Html.TextBoxFor(x => x.casteMajor, new { @class = "form-control" })</div>
+                </div>
+
+                <div class="row rowmargin">
+                    <div class="col-lg-6 ">PROBLEMS*</div>
+                    <div class="col-lg-6 ">REMARKS</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 ">@Html.TextAreaFor(x => x.casteMajor, new { @class = "form-control" })</div>
+                    <div class="col-lg-6 ">@Html.TextAreaFor(x => x.casteMajor, new { @class = "form-control" })</div>
+                </div>
             </div>
-        </div>  
+            <button type="button"  class="btn btn-success mb-3" style="display:block">Save</button>
+            <button type="button"  class="btn btn-success mb-3" style="display:none">Update</button>
+        </div>
+    </form>
+    <div id="dvVillage" class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-title"> <h3>Village Info</h3> </div>
+        <div class="card-body" style="background-color:whitesmoke">
+           <h4>No Info</h4>
+        </div>
+
+        <button type="button" id="btSaveVillageInfo" value="Save" class="btn btn-success mb-3">Save</button>
+
     </div>
 </div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#constituency").on("change", function () {
+                
+                var selectedVal = $(this.selectedOptions).text();
+                var url = "../../VillageProfile/GetDistrict"
+                $.get(url, { Constituency: selectedVal }, function (response) {
+                    if (response.status = "success") {
+                        $.each(response.data, function (index, row) {
+                            $("#District").append("<option value='" + row.value + "'>" + row.text + "</option>");
+                        })
+
+                    }
+                    // if()
+                })
+            });
+
+            $("#District").on("change", function () {
+             
+                var selectedVal = $(this.selectedOptions).text();
+                var url = "../../VillageProfile/GetBlock"
+                $.get(url, { District: selectedVal }, function (response) {
+                    if (response.status = "success") {
+                        $.each(response.data, function (index, row) {
+                            $("#Block").append("<option value='" + row.value + "'>" + row.text + "</option>");
+                        });
+                    }
+                    // if()
+                })
+            });
+
+            $("#Block").on("change", function () {
+               
+                var selectedVal = $(this.selectedOptions).text();
+                var url = "../../VillageProfile/GetVillage"
+                $.get(url, { Block: selectedVal }, function (response) {
+                    if (response.status = "success") {
+                        $.each(response.data, function (index, row) {
+                            $("#Village").append("<option value='" + row.value + "'>" + row.text + "</option>");
+                        });
+                    }
+                    // if()
+                })
+            });
+
+            $("#Village").on("change", function () {
+              
+                var village = $(this.selectedOptions).text();
+                var district = $("#District option:selected").text();
+                var block = $("#Block option:selected").text();
+                var constituency = $("#District option:selected").text();
+                var url = "../../VillageProfile/GetSarpanchInformation"
+                $.get(url, { _Village: village, Constituency: constituency, district: district, Block: block }, function (response) {
+                    if (response.status = "success") {
+                       
+                        $("#TXTSARPANCH").val(response.data[0]["Name"]);
+                        $("#TXTSAR_MOBILE").val(response.data[0]["mob_no"]);
+                        $("#txt_sar_father_husbandname").val(response.data[0]["Father_Husband_Name"]);
+                        $("#txt_sar_address").val(response.data[0]["permanent_address1"]);
+                        $("#txt_cor_address1").val(response.data[0]["cor_address1"]);
+                        $("#txt_gender").val(response.data[0]["gender"]);
+                        $("#txt_edu").val(response.data[0]["education"]);
+                        $("#txt_occupation").val(response.data[0]["occupation"]);
+                        $("#txt_dob").val(ConvertDate(response.data[0]["dob"]));
+                        $("#txt_approx_age").val(response.data[0]["approx_age"]);
+                        $("#txt_marital_status").val(response.data[0]["marital_status_id"]);
+                        $("#txt_email_id").val(response.data[0]["email_id"]);
+                        $("#txt_adhar_no").val(response.data[0]["adhar_no"]);
+                        $("#txt_sar_caste").val(response.data[0]["caste"]);
+                    }
+                    // if()
+                })
+            });
+        });
+
+        function ConvertDate(dateString) {
+            debugger
+            newDate = moment(dateString).format("DD-MM-YYYY");
+            //var date = new Date();
+            // date =  Date((_date).substr(6, 12));
+            //
+            //var newDate = date.getDay() + "-" + date.getMonth() + "-" + + date.getFullYear() ;
+            return newDate;
+        }
+    </script>
+}
+

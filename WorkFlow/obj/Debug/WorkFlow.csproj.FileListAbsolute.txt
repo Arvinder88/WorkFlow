@@ -215,8 +215,8 @@ D:\Projects\WORKFLOW\WorkFlow\WorkFlow\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Projects\WORKFLOW\WorkFlow\WorkFlow\bin\System.Diagnostics.DiagnosticSource.xml
 D:\Projects\WORKFLOW\WorkFlow\WorkFlow\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 D:\Projects\WORKFLOW\WorkFlow\WorkFlow\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Projects\WORKFLOW\WorkFlow\WorkFlow\obj\Debug\WorkFlow.csprojAssemblyReference.cache
 D:\Projects\WORKFLOW\WorkFlow\WorkFlow\obj\Debug\WorkFlow.csproj.CoreCompileInputs.cache
 D:\Projects\WORKFLOW\WorkFlow\WorkFlow\obj\Debug\WorkFlow.csproj.CopyComplete
 D:\Projects\WORKFLOW\WorkFlow\WorkFlow\obj\Debug\WorkFlow.dll
 D:\Projects\WORKFLOW\WorkFlow\WorkFlow\obj\Debug\WorkFlow.pdb
+D:\Projects\WORKFLOW\WorkFlow\WorkFlow\obj\Debug\WorkFlow.csprojAssemblyReference.cache

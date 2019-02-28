@@ -53,6 +53,28 @@ namespace Dapper.DAL.Models
     }
 
     /// <summary>
+    /// A class which represents the tbVillageProfile table.
+    /// </summary>
+    [Table("tbVillageProfile")]
+    public partial class tbVillageProfile
+    {
+        [Key]
+    	[Required] 
+	    public virtual int profileID { get; set; }
+        public virtual string contituency { get; set; }
+        public virtual string district { get; set; }
+        public virtual string block { get; set; }
+        public virtual string village { get; set; }
+        public virtual string totalVotes { get; set; }
+        public virtual string casteMajor { get; set; }
+        public virtual string problems { get; set; }
+        public virtual string remarks { get; set; }
+        public virtual string comments { get; set; }
+        public virtual int? sarpanchID { get; set; }
+
+    }
+
+    /// <summary>
     /// A class which represents the Role_Master table.
     /// </summary>
     [Table("Role_Master")]

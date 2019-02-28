@@ -334,6 +334,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\VillageProfile\VillageProfile.cshtml" />
+    <Content Include="Views\VillageProfile\GetVillageProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
